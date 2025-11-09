@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form with Table</title>
+    <style>
+        table { border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f0f0f0; }
+    </style>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div style="background-color: paleturquoise;">
+        <h1>Timekeeper Entry</h1>
+        <input type="text" id="input1" placeholder="Enter start time">
+        <input type="text" id="input2" placeholder="Enter end time">
+        <button onclick="addRow()">Submit</button>
+        <hr>
+    </div>
+    
+
+    
+
+    <div>
+        <button onclick="clearData()">Clear Table</button>
+    </div>
+    
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Elapsed Time</th>
+                <th>Delete Line</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+    <hr>
+    <div>
+        <button onclick="computeTotalTime()">Total Time</button>
+    </div>
+    <div id="total-elapsed-time">
+        Total Elapsed Time: None
+    </div> 
+        
+</body>
+</html>
