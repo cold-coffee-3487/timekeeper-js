@@ -75,6 +75,8 @@ function addRow() {
     // Clear inputs
     document.getElementById('input1').value = '';
     document.getElementById('input2').value = '';
+
+    computeTotalTime();
 }
 
 function computeTotalTime() {
@@ -107,16 +109,22 @@ function computeTotalTime() {
 function saveDataToCookie() {
     //console.log('Saving data to cookie');
     const tableBody = document.getElementById('tableBody');
-    let data = [];
+    const input1 = document.getElementById('input1').value;
+    const input2 = document.getElementById('input2').value;
+    let data = {"txtEntries": [input1, input2], "tableEntries": []};
 
     for (let i = 0; i < tableBody.rows.length; i++) {
         const row = tableBody.rows[i];
         const startTimeStr = row.cells[0].textContent;
         const endTimeStr = row.cells[1].textContent;
-        data.push({start: startTimeStr, end: endTimeStr});
+        data.tableEntries.push({start: startTimeStr, end: endTimeStr});
     }
 
-    document.cookie = "timekeeperData=" + JSON.stringify(data) + ";path=/";
+    // store as a persistent cookie, valid for the entire site
+    // make a UTC date equal to 1 year from now
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    document.cookie = "timekeeperData=" + JSON.stringify(data) + ";expires=" + expiryDate.toUTCString() + ";path=/";
 }
 
 function loadDataFromCookie() {
@@ -132,11 +140,14 @@ function loadDataFromCookie() {
     }
 
     if (timekeeperData) {
-        for (let entry of timekeeperData) {
+        for (let entry of timekeeperData.tableEntries) {
             document.getElementById('input1').value = entry.start;
             document.getElementById('input2').value = entry.end;
             addRow();
         }
+
+        document.getElementById('input1').value = timekeeperData.txtEntries[0];
+        document.getElementById('input2').value = timekeeperData.txtEntries[1];
     }
 }
 
