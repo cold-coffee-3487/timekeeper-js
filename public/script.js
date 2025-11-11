@@ -1,3 +1,5 @@
+const VERSION = '1.0.0';
+
 function strToTime(timeStr) {
     const splitTime = timeStr.split(' ');
     timeStr = splitTime[0];
@@ -163,6 +165,7 @@ function clearData() {
 
 window.onload = function() {
     loadDataFromCookie();
+    document.getElementById('version-info').textContent = 'Version: ' + VERSION;
 };
 
 window.onbeforeunload = function() {
